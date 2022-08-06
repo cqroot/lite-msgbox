@@ -1,0 +1,3 @@
+[submodule "src/third-party/cmdline"]
+	path = src/third-party/cmdline
+	url = https://github.com/tanakh/cmdline
