@@ -36,7 +36,7 @@ private:
     bool mMoving = false;
     QPoint mLastMousePosition;
 
-    void setupUi();
+    void setupComponents();
 };
 
 #endif // MAINWINDOW_H

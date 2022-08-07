@@ -12,30 +12,14 @@ MainDialog::MainDialog(QString message, int width, int height, QWidget* parent)
   , _width(width)
   , _height(height)
 {
-    setupUi();
+    setupComponents();
+
+    setFixedSize(_width, _height);
+    setWindowFlags(windowFlags() | Qt::FramelessWindowHint |
+                   Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
 }
 
 MainDialog::~MainDialog() {}
-
-void MainDialog::setupUi()
-{
-    messageLabel = new QLabel(_message);
-    messageLabel->setObjectName("MessageLabel");
-    messageLabel->setAlignment(Qt::AlignCenter);
-
-    buttonLayout = new QHBoxLayout();
-    buttonLayout->addSpacerItem(
-      new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Fixed));
-
-    QVBoxLayout* mainLayout = new QVBoxLayout();
-    mainLayout->addWidget(messageLabel);
-    mainLayout->addLayout(buttonLayout);
-
-    setLayout(mainLayout);
-
-    setFixedSize(_width, _height);
-    setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
-}
 
 void MainDialog::setTimeout(int timeout)
 {
@@ -70,4 +54,23 @@ void MainDialog::mouseReleaseEvent(QMouseEvent* event)
     if (event->button() == Qt::LeftButton) {
         mMoving = false;
     }
+}
+void MainDialog::setupComponents()
+{
+    // message
+    messageLabel = new QLabel(_message);
+    messageLabel->setObjectName("MessageLabel");
+    messageLabel->setAlignment(Qt::AlignCenter);
+
+    // button
+    buttonLayout = new QHBoxLayout();
+    buttonLayout->addSpacerItem(
+      new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Fixed));
+
+    // main
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+    mainLayout->addWidget(messageLabel);
+    mainLayout->addLayout(buttonLayout);
+
+    setLayout(mainLayout);
 }
