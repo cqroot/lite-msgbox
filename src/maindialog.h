@@ -18,6 +18,7 @@ public:
     ~MainDialog();
 
     void setTimeout(int timeout);
+    void setTitle(QString title);
     void addButton(QString text, int code);
 
 protected:
@@ -26,6 +27,8 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event);
 
 private:
+    // ui components
+    QLabel* titleLabel;
     QLabel* messageLabel;
     QHBoxLayout* buttonLayout;
 

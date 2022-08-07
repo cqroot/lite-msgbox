@@ -24,10 +24,11 @@ QString CleanString(QString str)
 void InitFlags(cmdline::parser& cp)
 {
     cp.add<std::string>("message", 'm', "message", true, "");
+    cp.add<std::string>("title", 't', "title", false, "");
     cp.add<int>("width", 'w', "width", false, 300);
     cp.add<int>("height", 'h', "height", false, 150);
     cp.add<std::string>("qss", 's', "qt style sheets file", false, "");
-    cp.add<int>("timeout", 't', "timeout(s)", false, 60);
+    cp.add<int>("timeout", 'T', "timeout(s)", false, 60);
     cp.add<std::string>("buttons",
                         'b',
                         "a json string describing the button group",
@@ -56,6 +57,10 @@ int main(int argc, char* argv[])
       CleanString(QString::fromStdString(cp.get<std::string>("message"))),
       cp.get<int>("width"),
       cp.get<int>("height"));
+
+    if (cp.exist("title")) {
+        d.setTitle(QString::fromStdString(cp.get<std::string>("title")));
+    }
 
     QString buttonStr =
       CleanString(QString::fromStdString(cp.get<std::string>("buttons")));

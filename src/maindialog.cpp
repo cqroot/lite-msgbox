@@ -26,11 +26,18 @@ void MainDialog::setTimeout(int timeout)
     QTimer::singleShot(timeout * 1000, this, [this] { done(0); });
 }
 
+void MainDialog::setTitle(QString title)
+{
+    titleLabel->setVisible(true);
+    titleLabel->setText(title);
+}
+
 void MainDialog::addButton(QString text, int code)
 {
     QPushButton* button = new QPushButton(text);
     QObject::connect(
       button, &QPushButton::clicked, this, [this, code] { done(code); });
+    button->setFixedSize(QSize(80, 60));
     buttonLayout->addWidget(button);
 }
 
@@ -57,6 +64,12 @@ void MainDialog::mouseReleaseEvent(QMouseEvent* event)
 }
 void MainDialog::setupComponents()
 {
+    // title
+    titleLabel = new QLabel();
+    titleLabel->setObjectName("TitleLabel");
+    titleLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    titleLabel->setVisible(false);
+
     // message
     messageLabel = new QLabel(_message);
     messageLabel->setObjectName("MessageLabel");
@@ -69,6 +82,9 @@ void MainDialog::setupComponents()
 
     // main
     QVBoxLayout* mainLayout = new QVBoxLayout();
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+
+    mainLayout->addWidget(titleLabel);
     mainLayout->addWidget(messageLabel);
     mainLayout->addLayout(buttonLayout);
 
