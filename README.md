@@ -19,7 +19,14 @@ This will open an message box with buttons `OK` and `Cancel`.
 
 ## Custom appearance
 
+You can use `--qss` or `-s` to specify your qss file.
+The default qss file is [qss/default.qss](https://github.com/cqroot/lite-msgbox/blob/main/qss/default.qss).
+
+The layout of the dialog is as follows:
+
 ```text
++---------------------------------------------------+
+| QLabel#TitleLabel                                 |
 +---------------------------------------------------+
 |                                                   |
 |                QLabel#MessageLabel                |
